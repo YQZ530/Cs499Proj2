@@ -33,23 +33,25 @@ public class GyroController : MonoBehaviour
 
 	 protected void Start () 
 	{
-		
-       
-	}
+        AttachGyro();
+
+    }
 
 	 protected void Update() 
 
 	{
         
-        //timer += Time.deltaTime;
-		if (gyroEnabled == false && first )
+        
+		if (first)
         {
-            AttachGyro();
-            //Input.gyro.enabled = false;
+           
+            Input.gyro.enabled = false;
             Input.gyro.enabled = true;
+           
+            
             first = false;
         }
-			
+		else 	
 		transform.rotation = Quaternion.Slerp(transform.rotation,
 			cameraBase * ( ConvertRotation(referanceRotation * Input.gyro.attitude) * GetRotFix()), lowPassFilterFactor);
 	}
@@ -58,10 +60,10 @@ public class GyroController : MonoBehaviour
     
 
   
-	/*protected void OnGUI()
+	protected void OnGUI()
 	{
     
-       // GUILayout.Button("On/off gyro: " + Input.gyro.enabled);
+       /*// GUILayout.Button("On/off gyro: " + Input.gyro.enabled);
        // GUILayout.Button("On/off gyro controller: " + gyroEnabled);
         
 		if (!debug)
@@ -109,9 +111,9 @@ public class GyroController : MonoBehaviour
 		if (GUILayout.Button("Reset camera rotation", GUILayout.Height(80)))
 		{
 			transform.rotation = Quaternion.identity;
-		}
+		}*/
     } 
-    */
+    
 
 
 
@@ -206,9 +208,8 @@ public class GyroController : MonoBehaviour
 	/// </param>
 	private static Quaternion ConvertRotation(Quaternion q)
 	{
-        //return new Quaternion(q.x, q.y, -q.z, -q.w);	
-        return new Quaternion(q.z, q.y, -q.x, -q.w);
-    }
+		return new Quaternion(q.x, q.y, -q.z, -q.w);	
+	}
 	
 	/// <summary>
 	/// Gets the rot fix for different orientations.

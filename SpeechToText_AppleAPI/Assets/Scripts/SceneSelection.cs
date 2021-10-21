@@ -7,7 +7,7 @@ public class SceneSelection : MonoBehaviour
   
         public GUIStyle BedroomStyle;
         public GUIStyle galleryStyle;
-        
+        public GUIStyle BaseStyle;
 
         public int Width;
         public int Height;
@@ -21,21 +21,32 @@ public class SceneSelection : MonoBehaviour
         public Font Starker;
         Rect bedRect;
         Rect galleryRect;
-     
 
+        Rect BaseRect;
 
-        void Awake()
+    void Awake()
         {
             Width = Screen.width;
             Height = Screen.height;
             wunit = Width / 3;
-            hunit = Height / 3;
-        
+            hunit = Height /3;
 
-            bedRect = new Rect(30, 150, 600, 360);
-            galleryRect = new Rect(30 + wunit, 150, 600, 360);
-           
-        
+        BaseRect = new Rect(30, 150, 600, 360);
+       
+        galleryRect = new Rect(30 + wunit, 150, 600, 360);
+
+        bedRect = new Rect(30 + wunit*2, 150, 600, 360);
+
+        BaseStyle = new GUIStyle();
+            BaseStyle.font = Starker;
+            BaseStyle.fontSize = 80;
+            BaseStyle.alignment = TextAnchor.MiddleCenter;
+            BaseStyle.normal.textColor = Color.black;
+            BaseStyle.normal.background = bed;
+            BaseStyle.fixedWidth = 600;
+            BaseStyle.fixedHeight = 360;
+            BaseStyle.contentOffset = new Vector2(0, 152f);
+
             BedroomStyle = new GUIStyle();
             BedroomStyle.font = Starker;
             BedroomStyle.fontSize = 80;
@@ -63,25 +74,30 @@ public class SceneSelection : MonoBehaviour
         {
 
          
-            if (GUI.Button(bedRect, "Scene1", BedroomStyle))
+            if (GUI.Button(BaseRect, "Scene1", BaseStyle))
             {
            // Debug.Log("scene1");
-                SceneManager.LoadScene("ExtraCredit2", LoadSceneMode.Single);
+                SceneManager.LoadScene("ExtraCredit1", LoadSceneMode.Single);
             }
 
             else if (GUI.Button(galleryRect, "Scene2", galleryStyle))
             {
             //Debug.Log("scene2");
-                 SceneManager.LoadScene("ExtraCredit3", LoadSceneMode.Single);
+                 SceneManager.LoadScene("ExtraCredit2", LoadSceneMode.Single);
             }
 
-          
-            //else if (GUI.Button(Exit, "Exit", ExitStyle))
-            //{
-            //    Application.Quit();
-            //}
-
-
+        else if (GUI.Button(bedRect, "Scene3", BedroomStyle))
+        {
+            //Debug.Log("scene2");
+            SceneManager.LoadScene("ExtraCredit3", LoadSceneMode.Single);
         }
+
+        //else if (GUI.Button(Exit, "Exit", ExitStyle))
+        //{
+        //    Application.Quit();
+        //}
+
+
+    }
     }
 

@@ -15,10 +15,12 @@ public class GameController : MonoBehaviour
     int walkHash = Animator.StringToHash("Walk");
     int idleHash = Animator.StringToHash("Idle");
     private StringComparison comp ;
-
+    //public GameObject cam;
     public Text Debugtext;
     void Start()
     {
+        Screen.orientation = ScreenOrientation.LandscapeRight;//or right for right landscape 
+
         anim = GetComponent<Animator>();
         var scripts = FindObjectsOfType<MonoBehaviour>().OfType<IMessage>();
         foreach(var s in scripts)
@@ -45,6 +47,8 @@ public class GameController : MonoBehaviour
         String s = (String)  _data;
         String w = "walk";
         comp = StringComparison.OrdinalIgnoreCase;
+
+       // Debugtext.text += cam.transform.position.ToString();
         if (s.Contains(w) )
         {
             SetTrigger(walkHash);
@@ -55,7 +59,7 @@ public class GameController : MonoBehaviour
             SetTrigger(jumpHash);
             Debugtext.text = "set to Jump";
         }
-        else if (_data.Contains("Idle") || _data.Contains("idle")|| _data.Contains("idl"))
+        else if (_data.Contains("Stay") || _data.Contains("idle")|| _data.Contains("Idle") || _data.Contains("stop"))
         {
             SetTrigger(idleHash);
             Debugtext.text = "set to Idle";
@@ -64,6 +68,7 @@ public class GameController : MonoBehaviour
         {
             Debugtext.text = _data;
         }
+
 
     }
 
